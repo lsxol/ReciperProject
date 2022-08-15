@@ -1,5 +1,7 @@
 package daniel.reciperproject.domain;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
@@ -9,6 +11,7 @@ public class Ingredient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Lob
     private String description;
     private BigDecimal amount;
 
@@ -17,6 +20,20 @@ public class Ingredient {
 
     @ManyToOne
     private Recipe recipe;
+
+    @Autowired
+    public Ingredient(String description, BigDecimal amount, UnitOfMeasure unitOfMeasure, Recipe recipe) {
+
+        this.description = description;
+        this.amount = amount;
+        this.unitOfMeasure = unitOfMeasure;
+        this.recipe = recipe;
+    }
+
+    public Ingredient() {
+
+    }
+
 
     public Long getId() {
         return id;
